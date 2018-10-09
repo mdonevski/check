@@ -1,0 +1,45 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Finastra Business Cheque Re-order Site</title>
+</head>
+<body>
+<h1>Finastra Business Cheque Re-order Site</h1>
+<div id="screenshot" style="text-align:center;">
+  <video class="videostream" autoplay=""></video>
+  <img id="screenshot-img" src="data:,">
+  <p><button class="capture-button">Capture video</button>
+  </p><p><button id="screenshot-button" disabled="">Take screenshot</button></p>
+</div>
+ 
+<script>
+const captureVideoButton =
+  document.querySelector('#screenshot .capture-button');
+const screenshotButton = document.querySelector('#screenshot-button');
+const img = document.querySelector('#screenshot img');
+const video = document.querySelector('#screenshot video');
+
+const canvas = document.createElement('canvas');
+
+const constraints = {
+//  video: true
+	video: {width: {exact: 1280}, height: {exact: 720}}};
+
+captureVideoButton.onclick = function() {
+  navigator.mediaDevices.getUserMedia(constraints).
+    then(handleSuccess).catch(handleError);
+};
+
+screenshotButton.onclick = video.onclick = function() {
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+  canvas.getContext('2d').drawImage(video, 0, 0);
+  // Other browsers will fall back to image/png
+  img.src = canvas.toDataURL('image/webp');
+};
+
+function handleSuccess(stream) {
+  screenshotButton.disabled = false;
+  video.srcObject = stream;
+}
+</script>
+
+</body></html>
