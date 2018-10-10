@@ -8,15 +8,22 @@
 <h1>Finastra Business Cheque Re-order Site</h1>
 <div id="screenshot" style="text-align:center;">
   <p><video class="videostream" autoplay=""></video></p>
-  <p><button class="btn btn-primary" id="capture-button">Capture video</button></p>
-  <p><button class="btn btn-primary" id="screenshot-button" disabled="">Take screenshot</button></p>
+<!--  <p><button class="btn btn-primary" id="capture-button">Capture video</button></p> -->
+  <p><button class="btn btn-primary btn-lg" id="screenshot-button">Take Snapshot and Read MICR</button></p>
 </div>
  
 <script>
 const captureVideoButton = document.querySelector('#capture-button');
 const screenshotButton = document.querySelector('#screenshot-button');
 const img = document.querySelector('#screenshot img');
-const video = document.querySelector('#screenshot video');
+//const video = document.querySelector('#screenshot video');
+
+var video = document.querySelector('#screenshot video'); //document.createElement('video');
+video.style.width = 640 + 'px';
+video.style.height = 480 + 'px';
+video.setAttribute('autoplay', '');
+video.setAttribute('muted', '');
+video.setAttribute('playsinline', '');
 
 const canvas = document.createElement('canvas');
 
@@ -25,14 +32,17 @@ const constraints = {
  audio: false,
   video: {
    facingMode: "environment"
-   
-  }
+   }
 };
 
-captureVideoButton.onclick = function() {
-  navigator.mediaDevices.getUserMedia(constraints).
-    then(handleSuccess).catch(handleError);
-};
+navigator.mediaDevices.getUserMedia(constraints).then(function success(stream) {
+  video.srcObject = stream;
+});
+
+//captureVideoButton.onclick = function() {
+//  navigator.mediaDevices.getUserMedia(constraints).
+//    then(handleSuccess).catch(handleError);
+//};
 
 screenshotButton.onclick = video.onclick = function() {
   canvas.width = video.videoWidth;
