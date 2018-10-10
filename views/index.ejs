@@ -5,11 +5,16 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 </head>
 <body>
+
+<div id="screenshot" class="container" style="text-align:center;" >
 <h1>Finastra Business Cheque Re-order Site</h1>
-<div id="screenshot" style="text-align:center;">
   <p><video class="videostream" autoplay=""></video></p>
 <!--  <p><button class="btn btn-primary" id="capture-button">Capture video</button></p> -->
   <p><button class="btn btn-primary btn-lg" id="screenshot-button">Take Snapshot and Read MICR</button></p>
+</div>
+<div id="result" class="container" style="text-align:left;" >
+  <h1>Result</h1>
+  <p class="result">Result will show here after snapshot/p>
 </div>
  
 <script>
@@ -57,7 +62,8 @@ screenshotButton.onclick = video.onclick = function() {
            imgBase64: dataURL
       }
   }).done(function(o) {
-         console.log('saved'); 
+        console.log(o);
+		$('.result').html(JSON.stringify(o));	
 
     });
 };

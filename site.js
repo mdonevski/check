@@ -53,9 +53,11 @@ new formidable.IncomingForm().parse(req)
 			  if (err) {
 				console.warn("Something went wrong:");
 				console.warn(err);
+				res.jsonp(err);
 			  } else {
 				console.log("Results:");
 				console.log(JSON.stringify(result, null, 4));
+				res.jsonp(result);
 			  }
 			});
             if(err){
@@ -70,9 +72,9 @@ new formidable.IncomingForm().parse(req)
     .on('error', function(err) {
         next(err);
     })
-    .on('end', function() {
-        res.end();
-    });
+//    .on('end', function() {
+//        res.end();
+//    });
 });
 
 app.post('/user/:id/addbook', function (req, res){
