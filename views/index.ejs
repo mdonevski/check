@@ -58,7 +58,7 @@ screenshotButton.onclick = video.onclick = function() {
    $('.result').html("Processing");
   $.ajax({
       type: "POST",
-      url: "/micr",
+      url: "<%= serviceroot %>/micr",
       data: { 
            imgBase64: dataURL
       }
