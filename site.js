@@ -34,14 +34,29 @@ var options = {
 
 var bardecoder = require('./zxing.js')(options);
 
-app.get('/', function(req, res){
+app.get(Config.sitefolder + '/', function(req, res){
 	res.render('index.ejs', {
+		serviceroot: Config.serviceroot
+					});
+	
+});
+
+app.get(Config.sitefolder + '/step2', function(req, res){
+	res.render('step2.ejs', {
+					});
+	
+});
+
+app.get(Config.sitefolder + '/step3', function(req, res){
+	res.render('step3.ejs', {
 					});
 	
 });
 
 
-app.post('/micr', function (req, res){
+
+
+app.post(Config.serviceroot + '/micr', function (req, res){
 
 new formidable.IncomingForm().parse(req)
     .on('field', function(name, field) {
@@ -77,10 +92,10 @@ new formidable.IncomingForm().parse(req)
 //    });
 });
 
-app.post('/user/:id/addbook', function (req, res){
+app.post('/bankauthorize', function (req, res){
     var form = new formidable.IncomingForm();
     form.parse(req, function (err, fields, files) {
-		author = fields.author;
+		username = fields.author;
 		title = fields.title;
 		pool.getConnection(function(err, connection) {
 			strQuery = "INSERT INTO readinglog.readinglog (`userid`, `author`, `title`, `date`) VALUES ("+req.params.id+", '"+author+"', '"+title+"',concat(year(now()),'-',month(now()),'-',day(now()) ) );";

@@ -14,7 +14,7 @@
 </div>
 <div id="result" class="container" style="text-align:left;" >
   <h1>Result</h1>
-  <p class="result">Result will show here after snapshot/p>
+  <p class="result">Result will show here after snapshot</p>
 </div>
  
 <script>
@@ -55,6 +55,7 @@ screenshotButton.onclick = video.onclick = function() {
   canvas.getContext('2d').drawImage(video, 0, 0);
   // Other browsers will fall back to image/png
    var dataURL = canvas.toDataURL('image/jpeg');
+   $('.result').html("Processing");
   $.ajax({
       type: "POST",
       url: "/micr",
