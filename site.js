@@ -56,7 +56,7 @@ app.get(Config.sitefolder + '/step3', function(req, res){
 
 
 
-app.post(Config.sitefolder + '/micr', function (req, res){
+app.post(Config.serviceroot + '/micr', function (req, res){
 
 new formidable.IncomingForm().parse(req)
     .on('field', function(name, field) {
